@@ -6,8 +6,9 @@ export class DataService {
 
   private counter: number = 0;
 
-  public getUsers(): User[] {
-    return [
+  public async getUsers(): Promise<User[]> {
+
+    const data = [
       <User>{
         id: 1,
         name: 'Vasya',
@@ -21,5 +22,19 @@ export class DataService {
         counter: this.counter
       }
     ];
+
+    return this.createPromise(data);
+  }
+
+  private createPromise(data: any, timeout: number = 100): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          resolve(data);
+        } catch (error: unknown) {
+          reject(error);
+        }
+      }, timeout);
+    });
   }
 }

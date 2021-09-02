@@ -1,5 +1,5 @@
 /* eslint-disable no-redeclare */
-import { createExpressServer, getMetadataArgsStorage, RoutingControllersOptions, useContainer } from 'routing-controllers';
+import { createExpressServer, getMetadataArgsStorage, HttpError, RoutingControllersOptions, useContainer } from 'routing-controllers';
 import { Container } from 'aurelia-dependency-injection';
 import { initialize } from 'aurelia-pal-nodejs';
 import { AureliaIocAdapter } from './aurelia-ioc-adapter';
@@ -9,6 +9,17 @@ import { routingControllersToSpec } from 'routing-controllers-openapi';
 import * as swaggerUiExpress from 'swagger-ui-express';
 import { defaultMetadataStorage as classTransformerDefaultMetadataStorage } from 'class-transformer/cjs/storage';
 
+export class RequestTimeoutError extends HttpError {
+
+    constructor(message: string = 'Request Timeout.') {
+        super(408);
+        this.name = 'RequestTimeoutError';
+        Object.setPrototypeOf(this, RequestTimeoutError.prototype);
+        if (message)
+            this.message = message;
+    }
+
+}
 
 export const IExpress = Symbol('IExpress');
 
@@ -65,8 +76,22 @@ export class Bootstrapper {
 
         //console.log(spec);
 
-        workhorse.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(spec));
-        
+        const timeOut = 1000 * 60 * 10;
+        workhorse
+            .use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(spec))
+            .use((req, res, next) => {
+                req.setTimeout(timeOut, () => {
+                    const error = new RequestTimeoutError();
+                    next(error);
+                });
+                res.setTimeout(timeOut, () => {
+                    const error = new Error('Request has expired.');
+                    //err.status = 503;
+                    next(error);
+                });
+                next();
+            });
+
         // Render spec on root:
         workhorse.get('/', (_req, res) => {
             res.json(spec);
