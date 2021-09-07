@@ -8,17 +8,17 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import { routingControllersToSpec } from 'routing-controllers-openapi';
 import * as swaggerUiExpress from 'swagger-ui-express';
 import { defaultMetadataStorage as classTransformerDefaultMetadataStorage } from 'class-transformer/cjs/storage';
+import { StatusCodes } from 'http-status-codes';
 
 export class RequestTimeoutError extends HttpError {
 
     constructor(message: string = 'Request Timeout.') {
-        super(408);
+        super(StatusCodes.REQUEST_TIMEOUT);
         this.name = 'RequestTimeoutError';
         Object.setPrototypeOf(this, RequestTimeoutError.prototype);
         if (message)
             this.message = message;
     }
-
 }
 
 export const IExpress = Symbol('IExpress');
@@ -86,7 +86,7 @@ export class Bootstrapper {
                 });
                 res.setTimeout(timeOut, () => {
                     const error = new Error('Request has expired.');
-                    //err.status = 503;
+                    //error.status = StatusCodes.SERVICE_UNAVAILABLE;
                     next(error);
                 });
                 next();
@@ -97,9 +97,12 @@ export class Bootstrapper {
             res.json(spec);
         });
 
-        workhorse.listen(3000);
+        //TODO: Inject port number using dotenv or any other config provider option
+        let port = 3001;
 
-        console.log('The server running om http://127.0.0.1:3000');
+        workhorse.listen(port);
+
+        console.log(`The server running om http://127.0.0.1:${port}`);
     }
 }
 

@@ -1,2 +1,2 @@
 # node-code-first-sample
-The attempt to create an Open API complient server
+The attempt to create an Open API compliant server
