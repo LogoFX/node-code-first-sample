@@ -164,6 +164,3 @@ dist
 
 build/*
 
-# Ignore locked versions of modules
-**/package-lock.json
-
