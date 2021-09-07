@@ -13,8 +13,8 @@
   "keywords": [
     "aurelia-dependency-injection"
   ],
-  "author": "David Kossoglyad",
-  "license": "MIT",
+  "author": "David Kossoglyad, Gennady Verdel",
+  "license": "Apache",
   "dependencies": {
     "aurelia-dependency-injection": "^1.5.2",
     "aurelia-metadata": "^1.0.7",
