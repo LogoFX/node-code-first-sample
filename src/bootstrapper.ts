@@ -102,7 +102,7 @@ export class Bootstrapper {
 
         workhorse.listen(port);
 
-        console.log(`The server running om http://127.0.0.1:${port}`);
+        console.log(`Server listening on http://127.0.0.1:${port}`);
     }
 }
 
