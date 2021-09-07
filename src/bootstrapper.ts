@@ -39,8 +39,8 @@ export class Bootstrapper {
             cors: true,
             controllers: [__dirname + '/controllers/*{.controller.js,.controller.ts}'],
             defaults: {
-                nullResultCode: 404,
-                undefinedResultCode: 404
+                nullResultCode: StatusCodes.NOT_FOUND,
+                undefinedResultCode: StatusCodes.NOT_FOUND
             },
             validation: true
         };
