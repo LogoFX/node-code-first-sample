@@ -20,6 +20,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm i
-      - run: cd specs
+      - run: cd ./src/specs
       - run: npm i
       - run: npm test
