@@ -1,3 +1,11 @@
+name: Node.js CI
+2
+3on:
+4  push:
+5    branches: [ main, develop ]
+6  pull_request:
+7    branches: [ main, develop ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
