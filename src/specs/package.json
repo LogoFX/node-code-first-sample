@@ -26,6 +26,7 @@
       "../common/prototype-setup.js",
       "../common/jest-cucumber-config.js"
     ],
+    "globalTeardown": "<rootDir>/teardown.js",
     "reporters": [
       "default",
       [

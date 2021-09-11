@@ -50,5 +50,6 @@ defineFeature(__dirname, __filename, test => {
 
   afterAll(async () => {
     await processManagementService.stop();
+    console.log('after');
   });
 });
