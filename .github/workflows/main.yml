@@ -19,9 +19,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: Install deps
+      - name: Install app dependencies
         working-directory: ./src
         run: npm i
       - name: Execute specs
         working-directory: ./src/specs              
-        run: npm i & npm test        
+        run: |
+          echo "Installing specs dependencies"
+          npm i
+          echo "Executing scenarios"
+          npm test        
