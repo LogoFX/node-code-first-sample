@@ -19,9 +19,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: npm i
-      - run: cd src
-      - run: cd specs
-      - run: echo .
-      - run: npm i
-      - run: npm test
+      - name: Install deps
+        working-directory: ./src
+        run: npm i
+      - name: Execute specs
+        working-directory: ./src/specs              
+        run: npm i
+        run: npm test
