@@ -1,16 +1,25 @@
 const { sendGetUsersRequest } = require('../steps/users.steps');
 const { defineFeature } = require('../../common/test-utils');
-const { createScenarioDataStore } = require('./infra/scenario-data-store');
+const { createScenarioDataStore } = require('./infra/ScenarioDataStore');
+const { ProcessManagementService } = require('./infra/ProcessManagementService');
+
 const chai = require('chai');
 const expect = chai.expect;
 
 defineFeature(__dirname, __filename, test => {
+
+  let processManagementService = new ProcessManagementService();
+
+  beforeAll(async () => {    
+    await processManagementService.start();
+  });
+
   test('Getting users list should be successful', ({  
     given, 
     when,
     then,
   }) => {
-    
+        
     let scenarioDataStore = createScenarioDataStore();
 
     given(
@@ -36,5 +45,10 @@ defineFeature(__dirname, __filename, test => {
       let secondUser = data[1];
       expect(secondUser.name).to.equal('Petya');
     });
+    
+  });
+
+  afterAll(async () => {
+    await processManagementService.stop();
   });
 });
