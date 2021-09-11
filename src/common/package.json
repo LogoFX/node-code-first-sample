@@ -1,0 +1,12 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "description": "common",
+  "main": "test-utils.js",
+  "dependencies": {
+    "jest-cucumber": "^2.0.11"
+  },
+  "scripts": {},
+  "author": "Gennady Verdel",
+  "license": "ISC"
+}
