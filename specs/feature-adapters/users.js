@@ -1,5 +1,5 @@
 const { sendGetUsersRequest } = require('../steps/users.steps');
-const { defineFeature } = require('../../common/test-utils');
+const { defineFeature } = require('../../src/common/test-utils');
 const { createScenarioDataStore } = require('./infra/ScenarioDataStore');
 const { ProcessManagementService } = require('./infra/ProcessManagementService');
 

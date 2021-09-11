@@ -2,16 +2,16 @@ name: Node sample main pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master, develop ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '14', '16' ]
+        node: [ '14', '16' ]
     name: Node ${{ matrix.node }} sample with specs
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
       - name: Install app dependencies        
         run: npm i     
       - name: Execute specs
-        working-directory: ./src/specs              
+        working-directory: ./specs              
         run: |
           echo "Installing specs dependencies"
           npm i
