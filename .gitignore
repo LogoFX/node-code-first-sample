@@ -164,3 +164,6 @@ dist
 
 build/*
 
+# Test report files
+**/test-report.html
+
