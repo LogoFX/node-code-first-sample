@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         node: [ '14', '16' ]
-    name: Node ${{ matrix.node }} sample with specs
+    name: Node ${{ matrix.node }} sample with specs 
     steps:
       - uses: actions/checkout@v2
       - name: Setup node
