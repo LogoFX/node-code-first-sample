@@ -1,0 +1,10 @@
+{
+  "Users": {
+    "Request": {
+      "href": "http://127.0.0.1:3001/Users",
+      "headers": {
+        "Authorization": "Bearer ${token}"
+      }
+    }    
+  }  
+}
