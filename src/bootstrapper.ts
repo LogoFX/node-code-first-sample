@@ -36,6 +36,7 @@ export class Bootstrapper {
         useContainer(adapter);
         
         const routingControllersOptions: RoutingControllersOptions = {
+            development: true,
             cors: true,
             controllers: [__dirname + '/controllers/*{.controller.js,.controller.ts}'],
             defaults: {
@@ -59,13 +60,13 @@ export class Bootstrapper {
         const storage = getMetadataArgsStorage();
         const spec = routingControllersToSpec(storage, routingControllersOptions, {
             components: {
-            schemas,
-            securitySchemes: {
-                basicAuth: {
-                    scheme: 'basic',
-                    type: 'http',
+                schemas,
+                securitySchemes: {
+                    basicAuth: {
+                        scheme: 'basic',
+                        type: 'http',
+                    },
                 },
-            },
             },
             info: {
                 description: 'Generated with `routing-controllers-openapi`',

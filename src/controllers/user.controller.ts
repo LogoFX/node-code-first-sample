@@ -1,6 +1,6 @@
 import { User } from '../model/user';
 import { autoinject, transient } from 'aurelia-dependency-injection';
-import { Param, Get, Post, Delete, Put, Body, JsonController, HttpCode } from 'routing-controllers';
+import { Param, Get, Post, Delete, Put, Body, JsonController, HttpCode, Header } from 'routing-controllers';
 import { DataService } from '../model/data.service';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
@@ -17,6 +17,9 @@ export class UserController {
   }
 
   @Get('/')
+  @HttpCode(200)
+  @Header('Cache-Control', 'none')
+  @Header('X-Powered-By', 'Kossoglyad')
   @OpenAPI({ summary: 'Return a list of users' })
   @ResponseSchema(User, {
     contentType: 'application/json',
@@ -37,8 +40,13 @@ export class UserController {
   @HttpCode(201)
   @Post('/')
   @OpenAPI({ summary: 'Create a new user' })
-  @ResponseSchema(User)
-  public post(@Body({validate: true}) user: User) {
+  @ResponseSchema(User, {
+    contentType: 'application/json',
+    description: 'A newly created user object',
+    statusCode: '201',
+    isArray: false
+  })
+  public post(@Body({validate: true}) user: User): User {
     return { ...user };
   }
 
